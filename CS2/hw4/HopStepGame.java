@@ -4,6 +4,8 @@
  * Programming Assignment 4
  */
 
+import java.lang.Math;
+
 class HopStepGame
 {
     public int minCost(int arr[], int numSquares)
@@ -16,7 +18,7 @@ class HopStepGame
 
         //return the minimum sum of all paths
         //then add the square we are currently on
-        return min(minCost(arr, numSquares - 1),
+        return Math.min(minCost(arr, numSquares - 1),
                    minCost(arr, numSquares - 2))
                    + arr[numSquares];
     }
@@ -34,7 +36,7 @@ class HopStepGame
             else
             {
                 //Set res to that minimum sum value of all path at currSquare
-                res[numSquares] = min(minCostMemoization(arr, numSquares - 1, res),
+                res[numSquares] = Math.min(minCostMemoization(arr, numSquares - 1, res),
                                       minCostMemoization(arr, numSquares - 2, res))
                                       + arr[numSquares];
             }
@@ -55,18 +57,12 @@ class HopStepGame
         for(int i = 2; i < len; i++)
         {
             //table value is minimum of past 2 + current array value
-            table[i] = min(table[i - 1],
+            table[i] = Math.min(table[i - 1],
                            table[i - 2])
                            + arr[i];
         }
 
         //Return the minimum of last 2 squares
-        return min(table[len - 1], table[len - 2]);
-    }
-
-    //I forgot Math.min existed
-    public int min(int a, int b)
-    {
-        return (a < b ? a : b);
+        return Math.min(table[len - 1], table[len - 2]);
     }
 }
