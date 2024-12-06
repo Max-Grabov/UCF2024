@@ -1,0 +1,54 @@
+def enterParams(self, ctx:SimpleIRParser.ParamsContext):
+        """Moves input parameters to their local variables"""
+        # TODO
+        registers = [ "%rdi", "%rsi", "%rdx", "%rcx", "%r8", "%r9" ]
+        params = [ param.getText() for param in ctx.NAME() ]
+
+        register_params = params[0:6]
+        stack_params = params[6:]
+
+        for i, param in enumerate(register_params):
+            offset = self.symtab[param]
+            self.outfile.write(f"mov {registers[i]}, {offset}(%rbp)\n")
+
+        for i, param in enumerate(stack_params):
+            offset = self.symtab[param]
+            self.outfile.write(f"mov {16 + i * 8}(%rbp), %rax\n")
+            self.outfile.write(f"mov %rax, {offset}(%rbp)\n")
+
+
+    def enterReturn(self, ctx:SimpleIRParser.ReturnContext):
+        """Sets the return value"""
+        # TODO
+        if ctx.operand.type == SimpleIRParser.NAME:
+            offset = self.symtab[ctx.operand.text]
+            self.outfile.write(f"mov {offset}(%rbp), %rax\n")
+        elif ctx.operand.type == SimpleIRParser.NUM:
+            self.outfile.write(f"mov ${ctx.operand.text}, %rax\n")
+
+    def enterCall(self, ctx:SimpleIRParser.CallContext):
+        """Function call"""
+        # TODO
+        call = [ name.getText() for name in ctx.NAME() ]
+        varname = call[0]
+        funname = call[1]
+        params = call[2:]
+
+        registers = [ "%rdi", "%rsi", "%rdx", "%rcx", "%r8", "%r9" ]
+
+        register_params = params[0:6]
+        stack_params = params[6:]
+
+        for i,param in enumerate(register_params):
+            offset = self.symtab[param]
+            self.outfile.write(f"mov {offset}(%rbp), {registers[i]}\n")
+
+        for i,param in enumerate(stack_params):
+            offset = self.symtab[param]
+            self.outfile.write(f"push {offset}(%rbp)\n")
+
+        self.outfile.write(f"call {funname}\n")
+        self.outfile.write(f"add ${8 * len(stack_params)}, %rsp\n")
+
+        offset = self.symtab[varname]
+        self.outfile.write(f"mov %rax, {offset}(%rbp)\n")
