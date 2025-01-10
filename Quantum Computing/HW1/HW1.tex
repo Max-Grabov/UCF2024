@@ -1,0 +1,54 @@
+\documentclass{article}
+
+\usepackage[english]{babel}
+\usepackage{enumitem}
+
+\usepackage[letterpaper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+
+\title{Homework Set 1}
+\author{Max Grabov}
+
+\begin{document}
+\maketitle
+
+\subsection*{Question 5}
+\begin{enumerate}[label=\alph*)]
+\item
+First, recognize that the Centripetal force would equal the Coulomb force for the proton electron system.
+
+\[\frac{k|q_1q_2|}{r^2} = \frac{m_ev_e^2}{r}\]
+The values for $q_1$ and $q_2$ both have a magnitude of $e$, using this and some simple algebra, we can simplify the expression:
+
+\[ke^2 = m_ev_e^2r\]
+Now, using the fact that angular momentum is the cross of the radius and linear momentum, we also have the expression:
+
+\[L=r\times{p}\]
+\[=m_ev_er\]
+We know that Bohr's quantization of Angular Momentum is $L = n\hbar$. This means that setting these equal to eachother:
+
+\[m_ev_er = n\hbar\]
+Going back to the original equation, we can get an expression for velocity:
+
+\[ke^2 = m_ev_e^2r\]
+\[ke^2 = v_e(m_ev_er)\]
+\[ke^2 = v_en\hbar\]
+\[v_e = \frac{ke^2}{n\hbar}\]
+Going back to the original equation:
+
+\[\frac{ke^2}{r^2} = \frac{m_ev_e^2}{r}\]
+\[\frac{ke^2}{r^2} = \frac{m_e(\frac{ke^2}{n\hbar})^2}{r}\]
+\[\frac{1}{r^2} = \frac{m_eke^2}{n^2\hbar^2r}\]
+let $n_q = n^2$
+\[r = \frac{n_q\hbar^2}{m_eke^2}\]
+We can verify this by plugging in the values given, that it will equal the Bohr radius of a hydrogen atom in ground state
+
+\[r = \frac{1\times{(1.055\times{10^{-34})}^2}}{9.11\times{10^{31}}\times{(1.6\times{10^{-19})}^2} \times{8.98 \times{10^{9}}}} =5.31\times{10^{-11}} \approx 5.29\times{10^{-11}}\]
+
+\item
+
+\end{enumerate}
+\end{document}`
