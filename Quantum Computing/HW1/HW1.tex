@@ -23,11 +23,11 @@ Since it is asking for the ratio of the spectral densities, we can just divide t
 \[\frac{u(f_u)}{u(f_r)} = \frac{\frac{8\pi hf_u^3}{c^3}\frac{1}{e^{{hf_u}/{k_BT_u}} - 1}}{\frac{8\pi hf_r^3}{c^3}\frac{1}{e^{{hf_r}/{k_BT_r}} - 1}}\]
 \[=\frac{f_u^3}{f_r^3}\frac{e^{{hf_r}/{k_BT_r}} - 1}{e^{{hf_u}/{k_BT_u}} - 1}\]
 \item
-From the problem, we can use a value of $T=\,\,\SI{3}{\kelvin}$. Plugging this in:
+From the problem, we can use a value of $T=\,\SI{3}{\kelvin}$. Plugging this in:
 
 \[u(f) = {\frac{8\pi hf^3}
 {c^3}}\frac{1}{e^{{hf}/{3k_B}} - 1}\]
-We want the frequency where this is maximized, so we can take the derivative with respect to $f$. For simplicity, I will make the substitution $q = \frac{h}{3k_B}$.
+To find the predominant wavelength, We want the frequency where this is maximized, so we can take the derivative with respect to $f$. For simplicity, I will make the substitution $q = \frac{h}{3k_B}$.
 
 \[u'(f) = \frac{8\pi h}{c^3}\frac{d}{df}(\frac{f^3}{e^{{qf}} - 1})\]
 \[=\frac{8\pi h}{c^3}(\frac{3f^2(e^{qf} - 1) - (qe^{qf})f^3}{(e^{qf} - 1)^2})\]
@@ -36,16 +36,56 @@ Now we set this to zero to look for extrema:
 \[0=\frac{8\pi h}{c^3}(\frac{3f^2(e^{qf} - 1) - (qe^{qf})f^3}{(e^{qf} - 1)^2})\]
 \[0=\frac{3f^2(e^{qf} - 1) - (qe^{qf})f^3}{(e^{qf} - 1)^2}\]
 
-This equation is a bit nasty, so I will utilize a python solution I wrote to numerically solve this, attached separately. By doing this, we see a maximum value at: \[f_{max}=176180377082.7361407054255815502404548145236241676\,\,\SI{}{\hertz}\]
-\[f_{max}\approx1.762\cdot10^{11}\,\,\SI{}{\hertz}\]
+This equation is a bit nasty, so I will utilize a python solution I wrote to numerically solve this, attached separately. By doing this, we see a maximum value at: \[f_{max}=176180377082.7361407054255815502404548145236241676\,\SI{}{\hertz}\]
+\[f_{max}\approx1.762\cdot10^{11}\,\SI{}{\hertz}\]
+Now that we have the value, we can just convert it to wavelength:
+\[\lambda_{max} = \frac{c}{f_{max}}\]
+\[\lambda_{max} = \frac{3\cdot10^8\SI{}{\frac{m}{s}}}{1.762\cdot10^{11}\,\SI{}{\hertz}} = 1.703\cdot10^{-3}\,\SI{}{\meter}\]
 
 \end{enumerate}
 
+\subsection*{Question 2}
+A plausible explanation as to why electrons are ejected from a metal at different velocities, despite being shined on by a monochromatic light, could be due to electrons in the metal having different binding energies.
+Some electrons on the metal may be bounded with a weaker work function than others, which would cause the kinetic energy of the electron on ejection to be higher than those bounded with a stronger work function
+
+Additionally, it could also be the case that the photons in the light do not transfer energy efficiently. Some electrons may receive more energy than others, changing the kinetic energy of the electron on ejection from the metal.
 \subsection*{Question 3}
 \begin{enumerate}[label=\alph*)]
 \item
-The kinetic energy of the fastest photoelectron emitted when Light with a
+We know from the photoelectric effect that: $K_E=hf-W$ for $hf > W$, where $W$ is the work function. Plugging in the values given, $\lambda=2000\,\SI{}{\mathring{A}}$, $W = 4.2\,\SI{}{\electronvolt}$:
+\[K_E=hf-W=h(\frac{c}{\lambda}) - W\]
+\[=6.63\cdot10^{-34}\,\SI{}{\joule\cdot\second}\,(\frac{3\cdot10^8\,\SI{}{\frac{\meter}{\second}}}{2\cdot10^{-7}\,\SI{}{\meter}}) - 4.2\,\SI{}{\electronvolt}\]
+\[=9.945\cdot10^{-19}\,\SI{}{\joule} - 6.728\cdot10^{-19}\,\SI{}{\joule}\]
+\[=3.217\cdot10^{-19}\,\SI{}{\joule}\approx2\,\SI{}{\electronvolt}\]
+This should be the kinetic energy of the fastest photoelectron ejected
+\item
+For the slowest photoelectron ejected, this happens when the frequency is just enough to overcome the work function, this means that
+\[K_E=hf-W=0\]
+So the slowest photoelectron has a Kinetic energy of $0\,\SI{}{\electronvolt}$, since the light provides just enough energy for the electron to escape.
+\item
+The cutoff wavelength is the wavelength of light that is just high enough to remove an electron, therefore:
+\[0=h(\frac{c}{\lambda}) - W\]
+\[W=h(\frac{c}{\lambda})\]
+\[6.728\cdot10^{-19}\,\SI{}{\joule}=6.63\cdot10^{-34}\,\SI{}{\joule\cdot\second}\,(\frac{3\cdot10^8\,\SI{}{\frac{\meter}{\second}}}{\lambda})\]
+\[2.956\cdot10^{-7}\,\SI{}{\meter}=\lambda\]
+Therefore, the cutoff wavelength is $2956\SI{}{\mathring{A}}$
+\item
+To get the number of photons per unit of time and area that hit the aluminum, we must find the energy that one photon carries. The value given in the problem is that the light has an intensity of $2.0\,\SI{}{\watt/\meter^2}$. If we find the energy carried by one photon, we can directly get what we need.
+The energy of a photon is:
+\[E=hf\]
+Using the information provided:
+\[E=h(\frac{c}{\lambda})\]
+\[E=6.63\cdot10^{-34}\,\SI{}{\joule\cdot\second}\,(\frac{3\cdot10^8\,\SI{}{\frac{\meter}{\second}}}{2\cdot10^{-7}\,\SI{}{\meter}})=9.945\cdot10^{-19}\,\SI{}{\joule}\]
+Now, just divide the given intensity by the value for $E$.
+\[2.0\,\SI{}{\frac{\watt}{\meter^2}}\,/\,9.945\cdot10^{-19}\,\SI{}{\joule}=2.011\cdot10^{18}\,{\textnormal{photons}}\,/\SI{}{\meter^2\second}\]
 \end{enumerate}
+\subsection*{Question 4}
+To explain why we do not experience wave-like phenomena, I will use the example values provided to calculate the de Broglie wavelength of our example object, having a mass of $40\,\SI{}{\gram}$ and a velocity of $1000\,\SI{}{\meter/\second}$.
+\[\lambda_B=\frac{h}{p}\]
+Since our speed is much less than the speed of light, we can do the calculation assuming relativity has no effect.
+\[\lambda_B=\frac{h}{p}=\frac{h}{mv}\]
+\[=\frac{6.63\cdot10^{-34}\,\SI{}{\joule\cdot\second}}{0.04\,\SI{}{\kilogram}\cdot1000\,\SI{}{\meter/\second}}=1.6575\cdot10^{-35}\,\SI{}{\meter}\]
+This wavelength is extremely small compared to the distances we operate in. Therefore, the wave-like phenomena are not able to be experienced by us in our everyday lives. These effects are more noticeable when dealing with objects on the scale of light wavelengths.
 \subsection*{Question 5}
 \begin{enumerate}[label=\alph*)]
 \item
@@ -76,7 +116,7 @@ Going back to the original equation:
 \[r = \frac{n^2\hbar^2}{m_eke^2}\]
 We can verify this by plugging in the values given, that it will equal the Bohr radius of a hydrogen atom in ground state using $n=1$.
 
-\[r = \frac{1{(1.055\cdot{10^{-34})}^2}}{9.11\cdot{10^{-31}}\cdot{(1.6\cdot{10^{-19})}^2} \cdot{8.98 \cdot{10^{9}}}} =5.31\times{10^{-11}}\,\,\SI{}{\meter} \approx 5.29\times{10^{-11}}\,\,\SI{}{\meter}\]
+\[r = \frac{1{(1.055\cdot{10^{-34})}^2}}{9.11\cdot{10^{-31}}\cdot{(1.6\cdot{10^{-19})}^2} \cdot{8.98 \cdot{10^{9}}}} =5.31\times{10^{-11}}\,\SI{}{\meter} \approx 5.29\times{10^{-11}}\,\SI{}{\meter}\]
 \\
 \item
 $E_T$, representing the total energy in an electron, can be written as $K_E + U$, where $U$ is the potential energy of the electron, and $K_E$ is the Kinetic energy.
@@ -87,9 +127,9 @@ We can write the kinetic energy as $\frac{1}{2}m_ev_e^2$, and the potential ener
 \[E_T = \frac{1}{2}m_ev_e^2 + \frac{kq_1q_2}{r} = \frac{1}{2}m_e(\frac{ke^2}{n\hbar})^2 + \frac{ke(-e)}{(\frac{n^2\hbar^2}{m_eke^2})}\]
 \[E_T = \frac{1}{2}m_e(\frac{k^2e^4}{n^2\hbar^2}) - \frac{m_ek^2e^4}{n^2\hbar^2}\]
 \[E_T = \frac{-1}{2}\frac{m_ek^2e^4}{n^2\hbar^2}\]
-Once again we can do a verification, by plugging in $n=1$ to find the ground state energy level and verify if it matches closely to the actual value, being $\,\,\SI{-13.6}{\electronvolt}$.
+Once again we can do a verification, by plugging in $n=1$ to find the ground state energy level and verify if it matches closely to the actual value, being $\,\SI{-13.6}{\electronvolt}$.
 
-\[E_T = \frac{-1}{2}\times{\frac{9.11\cdot10^{-31}(8.98\cdot10^9)^2(1.602\cdot10^{-19})^4}{1^2\cdot(1.055\cdot10^{-34})^2}} \approx -21.67\times10^{-19}\,\,\SI{}{\joule}\approx\,\,\SI{-13.5}{\electronvolt}\]
+\[E_T = \frac{-1}{2}\times{\frac{9.11\cdot10^{-31}(8.98\cdot10^9)^2(1.602\cdot10^{-19})^4}{1^2\cdot(1.055\cdot10^{-34})^2}} \approx -21.67\times10^{-19}\,\SI{}{\joule}\approx\,\SI{-13.5}{\electronvolt}\]
 \\
 \item
 Because of the conservation of energy, the energy of an emitted or absorbed photon should be the difference between the two energy levels, $E_n$ and $E_{n'}$. Since we have an expression for the total energy of an electron at a certain quantized level, we can express the emitted/absorbed photon's energy as:
